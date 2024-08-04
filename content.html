@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Area</title>
+    <link rel="icon" href="logo.jpg">
+    <style>
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        .content-screen {
+            text-align: center;
+            border: 1px solid #333;
+            padding: 20px;
+            background-color: #1e1e1e;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            width: 600px;
+            position: relative;
+        }
+        .content-screen img {
+            width: 100px;
+            margin-bottom: 20px;
+        }
+        .content-screen h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .content-screen p {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        .content-screen button {
+            background-color: #444;
+            color: #fff;
+            border: 1px solid #333;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        .content-screen button:hover {
+            background-color: #555;
+        }
+        .hidden {
+            display: none;
+        }
+        .hacker-effect {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 255, 0, 0.1);
+            pointer-events: none;
+            display: none;
+            animation: flicker 0.1s infinite;
+        }
+        @keyframes flicker {
+            0% { opacity: 0.1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 0.1; }
+        }
+        .animation-brutal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(255, 0, 0, 0.8);
+            color: #fff;
+            font-size: 48px;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        .animation-brutal p {
+            margin: 0;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 1);
+        }
+        .data-section {
+            margin-top: 20px;
+        }
+        .data-section h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        .data-section p {
+            font-size: 14px;
+        }
+        audio {
+            display: none; /* Menyembunyikan elemen audio dari tampilan */
+        }
+    </style>
+</head>
+<body>
+    <div class="content-screen">
+        <img src="logo.jpg" alt="Logo">
+        <h1>Selamat Datang di Area Konten</h1>
+        <p>Anda telah berhasil masuk ke area konten. Berikut adalah beberapa informasi menarik yang jarang ditemukan di browser.</p>
+        
+        <div class="data-section">
+            <h2>Statistik Jaringan Gelap</h2>
+            <p><strong>Jumlah Situs Gelap:</strong> Lebih dari 50.000 situs terdaftar.</p>
+            <p><strong>Jumlah Pengguna Aktif:</strong> Diperkirakan lebih dari 2 juta pengguna aktif setiap bulan.</p>
+            <p><strong>Berita Terbaru:</strong> Penelitian baru menunjukkan bahwa 70% data pribadi yang dicuri berada di pasar gelap.</p>
+        </div>
+        
+        <div class="data-section">
+            <h2>Fakta Menarik</h2>
+            <p><strong>Nama Palsu:</strong> Di dunia gelap, pengguna sering menggunakan nama samaran yang tidak bisa dilacak.</p>
+            <p><strong>Keamanan Data:</strong> Banyak pengguna mengandalkan kriptografi tingkat tinggi untuk melindungi komunikasi mereka.</p>
+            <p><strong>Jenis Jaringan:</strong> Jaringan gelap menggunakan berbagai teknologi seperti Tor dan I2P untuk tetap anonim.</p>
+        </div>
+
+        <button onclick="playAudio()">Play Audio</button>
+        <button onclick="logout()">Logout</button>
+        <div id="hackerEffect" class="hacker-effect"></div>
+        <div id="animationBrutal" class="animation-brutal">
+            <p>Data Anda Sedang Diambil... Sistem Menghapus Semua Jejak...</p>
+        </div>
+
+        <audio id="backgroundAudio" src="hacker.mp3" loop></audio>
+    </div>
+
+    <script>
+        var audio = document.getElementById('backgroundAudio');
+
+        function playAudio() {
+            audio.play().catch(error => {
+                console.error('Error playing audio:', error);
+            });
+        }
+
+        function logout() {
+            // Menonaktifkan audio
+            audio.pause();
+            audio.currentTime = 0; // Mengatur waktu audio ke awal
+
+            // Menampilkan animasi brutal
+            document.getElementById("animationBrutal").style.display = 'flex';
+            document.getElementById("hackerEffect").style.display = 'block';
+
+            // Hapus status login dari Local Storage
+            localStorage.removeItem('loginStatus');
+
+            // Menghapus data dan menutup jendela setelah animasi
+            setTimeout(() => {
+                // Menampilkan halaman kosong
+                document.body.innerHTML = "<h1 style='color: red; text-align: center;'>Halaman Ini Kosong!</h1>";
+
+                // Menghapus riwayat browser
+                if (window.history && typeof window.history.replaceState === 'function') {
+                    window.history.replaceState({}, '', window.location.pathname);
+                }
+
+                // Menghapus cache dengan cache-control
+                document.addEventListener('DOMContentLoaded', () => {
+                    const meta = document.createElement('meta');
+                    meta.httpEquiv = 'Cache-Control';
+                    meta.content = 'no-store, no-cache, must-revalidate, max-age=0';
+                    document.head.appendChild(meta);
+
+                    const metaPragma = document.createElement('meta');
+                    metaPragma.httpEquiv = 'Pragma';
+                    metaPragma.content = 'no-cache';
+                    document.head.appendChild(metaPragma);
+
+                    const metaExpires = document.createElement('meta');
+                    metaExpires.httpEquiv = 'Expires';
+                    metaExpires.content = '0';
+                    document.head.appendChild(metaExpires);
+                });
+
+                // Logout dari Google dan menutup tab
+                setTimeout(() => {
+                    window.location.href = "https://accounts.google.com/Logout";
+                    setTimeout(() => {
+                        window.open('', '_self').close(); // Menutup tab jika memungkinkan
+                    }, 1000); // Penutupan tab mungkin tidak selalu berhasil
+                }, 1000); // Menunggu satu detik setelah menampilkan halaman kosong
+            }, 5000); // Menampilkan animasi selama 5 detik sebelum mengubah halaman
+        }
+
+        // Menangani tombol "Kembali"
+        window.onpopstate = function(event) {
+            // Arahkan kembali ke halaman kosong
+            document.body.innerHTML = "<h1 style='color: red; text-align: center;'>Halaman Ini Kosong!</h1>";
+            // Menambahkan entri riwayat untuk halaman kosong
+            history.pushState(null, null, window.location.href);
+        };
+
+        // Menangani cache browser
+        window.addEventListener('load', function() {
+            // Clear cache
+            if ('caches' in window) {
+                caches.keys().then(function(names) {
+                    for (let name of names) {
+                        caches.delete(name);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
