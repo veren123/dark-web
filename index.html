@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark web</title>
+    <link rel="icon" href="logo.jpg">
+    <style>
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        .title-screen {
+            text-align: center;
+            border: 1px solid #333;
+            padding: 20px;
+            background-color: #1e1e1e;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            width: 300px;
+            position: relative;
+        }
+        .title-screen img {
+            width: 100px;
+            margin-bottom: 20px;
+        }
+        .title-screen input {
+            display: block;
+            width: 80%;
+            padding: 10px;
+            margin: 10px auto;
+            border: 1px solid #333;
+            border-radius: 5px;
+            background-color: #2c2c2c;
+            color: #fff;
+        }
+        .title-screen input[type="submit"] {
+            background-color: #444;
+            cursor: pointer;
+        }
+        .title-screen input[type="submit"]:hover {
+            background-color: #555;
+        }
+        .warning {
+            color: red;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .notice {
+            color: yellow;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        .hidden {
+            display: none;
+        }
+        .alert-box {
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #000;
+            color: #f00;
+            border: 1px solid #f00;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+        }
+        .alert-box.show {
+            display: block;
+            animation: blink 1s infinite;
+        }
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        .animation {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 18px;
+            color: #0f0;
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: .15em solid #0f0;
+            animation: typing 8s steps(80, end), blink-caret .75s step-end infinite;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: #0f0; }
+        }
+        .hacker-effect {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 255, 0, 0.1);
+            pointer-events: none;
+            display: none;
+            animation: flicker 0.1s infinite;
+        }
+        @keyframes flicker {
+            0% { opacity: 0.1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 0.1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="title-screen">
+        <img id="regularLogo" src="logo.jpg" alt="Logo">
+        <img id="hackerLogo" class="hidden" src="hacker.gif" alt="Hacker Logo"> <!-- Gambar logo hacker -->
+        <h2>Login Dark-web</h2>
+        <form id="loginForm">
+            <input type="text" id="username" placeholder="Username" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <input type="submit" value="Login">
+        </form>
+        <p id="warningMessage" class="warning hidden">Anda penyusup!</p>
+        <p class="notice">Harap memasukkan username dan password yang valid. Penyusup akan dikenakan tindakan berupa data akun google hilang!</p>
+        <div id="alertBox" class="alert-box"></div>
+        <div id="animation" class="hidden animation">Data Anda sedang diambil.......</div>
+        <div id="hackerEffect" class="hacker-effect"></div>
+    </div>
+
+    <script src="kunci.js"></script>
+</body>
+</html>
